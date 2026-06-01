@@ -1,0 +1,7 @@
+flask==3.1.1
+pandas==2.2.3
+reportlab==4.3.1
+matplotlib==3.10.1
+gunicorn==23.0.0
+numpy==2.2.4
+waitress==3.0.2

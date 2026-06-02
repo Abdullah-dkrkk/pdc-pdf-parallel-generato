@@ -50,31 +50,23 @@ def upload():
         rows = df.to_dict(orient='records')
         num_rows = len(rows)
         from modules.sequential import process_sequential
-        from modules.parallel import process_parallel, process_parallel_thread
+        from modules.parallel import process_parallel_thread
         from modules.comparator import ComparisonResult
         import time
-        import gc
-        use_threading = os.environ.get('VERCEL', '') == '1'
         seq_dir = os.path.join(task_dir, 'sequential')
         os.makedirs(seq_dir, exist_ok=True)
         tasks[task_id]['progress'] = 10
         seq_time = process_sequential(rows, seq_dir)
         tasks[task_id]['progress'] = 40
         par_times = {}
-        worker_counts_to_run = [1, 2, 4, 8]
-        available_workers = os.cpu_count() or 4
-        effective_workers = [w for w in worker_counts_to_run if w <= available_workers * 2]
-        for wc in effective_workers:
+        worker_counts_to_run = [1, 2, 4]
+        for wc in worker_counts_to_run:
             if wc > num_rows:
                 continue
             par_dir = os.path.join(task_dir, f'parallel_{wc}')
             os.makedirs(par_dir, exist_ok=True)
-            if use_threading or wc > available_workers:
-                t = process_parallel_thread(rows, par_dir, wc)
-            else:
-                t = process_parallel(rows, par_dir, wc)
+            t = process_parallel_thread(rows, par_dir, wc)
             par_times[wc] = t
-            gc.collect()
             tasks[task_id]['progress'] = min(40 + int(50 * (worker_counts_to_run.index(wc) + 1) / len(worker_counts_to_run)), 90)
         result = ComparisonResult(seq_time, par_times, num_rows)
         chart_path = os.path.join(app.config['CHARTS_FOLDER'], f'{task_id}.png')

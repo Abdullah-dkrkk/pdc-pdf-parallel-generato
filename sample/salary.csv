@@ -1,0 +1,6 @@
+emp_id,name,designation,month,year,basic,allowances,deductions,net_pay
+EMP-001,Rashid Mehmood,Software Engineer,May,2026,"85,000","25,000","12,000","98,000"
+EMP-002,Sana Tariq,UI/UX Designer,May,2026,"70,000","20,000","8,000","82,000"
+EMP-003,Kamran Ali,Data Analyst,May,2026,"65,000","18,000","7,500","75,500"
+EMP-004,Hira Batool,Project Manager,May,2026,"95,000","30,000","15,000","1,10,000"
+EMP-005,Usman Ghani,DevOps Engineer,May,2026,"80,000","22,000","10,000","92,000"

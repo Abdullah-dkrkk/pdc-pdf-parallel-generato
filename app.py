@@ -28,7 +28,6 @@ def upload():
     if 'data_file' not in request.files:
         return jsonify({'error': 'No data file uploaded'}), 400
     data_file = request.files['data_file']
-    template_html = request.form.get('template', '')
     if data_file.filename == '':
         return jsonify({'error': 'No file selected'}), 400
     task_id = str(uuid.uuid4())[:8]
@@ -59,7 +58,7 @@ def upload():
         seq_dir = os.path.join(task_dir, 'sequential')
         os.makedirs(seq_dir, exist_ok=True)
         tasks[task_id]['progress'] = 10
-        seq_time = process_sequential(rows, template_html, seq_dir)
+        seq_time = process_sequential(rows, seq_dir)
         tasks[task_id]['progress'] = 40
         par_times = {}
         worker_counts_to_run = [1, 2, 4, 8]
@@ -71,9 +70,9 @@ def upload():
             par_dir = os.path.join(task_dir, f'parallel_{wc}')
             os.makedirs(par_dir, exist_ok=True)
             if use_threading or wc > available_workers:
-                t = process_parallel_thread(rows, template_html, par_dir, wc)
+                t = process_parallel_thread(rows, par_dir, wc)
             else:
-                t = process_parallel(rows, template_html, par_dir, wc)
+                t = process_parallel(rows, par_dir, wc)
             par_times[wc] = t
             gc.collect()
             tasks[task_id]['progress'] = min(40 + int(50 * (worker_counts_to_run.index(wc) + 1) / len(worker_counts_to_run)), 90)
@@ -130,6 +129,11 @@ def download(task_id):
         return jsonify({'error': 'File not found'}), 404
     return send_file(zip_path, as_attachment=True, download_name=f'reports_{task_id}.zip')
 
+
+@app.route('/sample/<path:filename>')
+def sample_file(filename):
+    sample_dir = os.path.join(os.path.dirname(__file__), 'sample')
+    return send_file(os.path.join(sample_dir, filename))
 
 @app.route('/chart/<task_id>')
 def chart(task_id):

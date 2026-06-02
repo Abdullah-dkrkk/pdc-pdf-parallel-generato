@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="light">
+<html lang="en" class="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,37 +11,27 @@
   <style>
     @import "tailwindcss";
     @theme {
-      --color-brand-green: #059669;
-      --color-brand-green-light: #ecfdf5;
+      --color-brand-green: #10b981;
+      --color-brand-green-light: #064e3b;
       --color-brand-green-dark: #065f46;
-      --color-brand-orange: #f97316;
-      --color-brand-orange-light: #fff7ed;
+      --color-brand-orange: #fb923c;
+      --color-brand-orange-light: #431407;
       --color-brand-orange-dark: #c2410c;
-      --color-muted: #f8fafc;
-      --color-muted-foreground: #64748b;
-      --color-secondary: #f1f5f9;
-      --color-secondary-foreground: #1e293b;
-      --color-border: #e2e8f0;
-      --color-input: #e2e8f0;
-      --color-ring: #059669;
+      --color-muted: #1e293b;
+      --color-muted-foreground: #94a3b8;
+      --color-secondary: #1e293b;
+      --color-secondary-foreground: #f8fafc;
+      --color-border: #1e293b;
+      --color-input: #1e293b;
+      --color-ring: #10b981;
       --color-destructive: #ef4444;
-      --color-accent: #fff7ed;
-      --color-accent-foreground: #c2410c;
+      --color-accent: #431407;
+      --color-accent-foreground: #fb923c;
       --font-sans: 'Inter', system-ui, sans-serif;
       --font-heading: 'Bricolage Grotesque', sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
     }
-    :root {
-      --background: #ffffff;
-      --foreground: #0c1222;
-      --card: #ffffff;
-      --card-foreground: #0c1222;
-      --shadow-sm: 0 1px 3px 0 rgba(0,0,0,0.06), 0 1px 2px -1px rgba(0,0,0,0.06);
-      --shadow: 0 4px 6px -1px rgba(0,0,0,0.06), 0 2px 4px -2px rgba(0,0,0,0.06);
-      --shadow-md: 0 10px 15px -3px rgba(0,0,0,0.06), 0 4px 6px -4px rgba(0,0,0,0.06);
-      --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.08), 0 8px 10px -6px rgba(0,0,0,0.08);
-    }
-    .dark {
+    :root { color-scheme: dark;
       --background: #0c1222;
       --foreground: #e2e8f0;
       --card: #1e293b;
@@ -109,7 +99,7 @@
       cursor: pointer;
       transition: all 0.15s;
     }
-    .btn-secondary:hover { background: #e2e8f0; }
+    .btn-secondary:hover { background: #334155; }
     .input-field {
       border: 1px solid var(--input);
       border-radius: 0.5rem;
@@ -126,24 +116,19 @@
     }
     .metric-value { font-size: 28px; font-weight: 700; line-height: 1.2; }
     .metric-label { font-size: 12px; color: var(--muted-foreground); font-weight: 500; }
-    .progress-bar { height: 6px; background: var(--secondary); border-radius: 3px; overflow: hidden; }
-    .progress-bar-fill { height: 100%; background: linear-gradient(90deg, #059669, #10b981); border-radius: 3px; transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
     .fade-in { animation: fadeIn 0.4s ease; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
     .slide-up { animation: slideUp 0.5s ease; }
     @keyframes slideUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
-    .spinner { width: 20px; height: 20px; border: 2px solid var(--border); border-top-color: #059669; border-radius: 50%; animation: spin 0.6s linear infinite; display: inline-block; }
-    @keyframes spin { to { transform: rotate(360deg); } }
     #drop-zone {
-      border: 2px dashed var(--border);
+      border: 2px dashed #059669;
       border-radius: 0.75rem;
       padding: 32px 20px;
       text-align: center;
       cursor: pointer;
       transition: all 0.2s;
-      background: var(--muted);
+      background: var(--brand-green-light);
     }
-    #drop-zone:hover { border-color: #059669; background: var(--brand-green-light); }
     #drop-zone.dragover { border-color: #059669; background: var(--brand-green-light); border-style: solid; transform: scale(1.01); }
     table.metrics-table { width: 100%; border-collapse: separate; border-spacing: 0; }
     table.metrics-table th { text-align: left; font-size: 12px; color: var(--muted-foreground); font-weight: 600; padding: 12px 16px; border-bottom: 1px solid var(--border); text-transform: uppercase; letter-spacing: 0.05em; }
@@ -158,12 +143,6 @@
     .badge-success { background: var(--brand-green-light); color: #059669; }
     .badge-warning { background: var(--brand-orange-light); color: #f97316; }
     .logo-icon { width: 36px; height: 36px; border-radius: 10px; background: linear-gradient(135deg, #059669, #10b981); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 14px; font-family: 'Bricolage Grotesque', sans-serif; }
-    .theme-toggle {
-      width: 36px; height: 36px; border-radius: 10px; border: 1px solid var(--border);
-      background: var(--card); cursor: pointer; display: flex; align-items: center; justify-content: center;
-      transition: all 0.2s; color: var(--muted-foreground);
-    }
-    .theme-toggle:hover { background: var(--secondary); color: var(--foreground); }
     .metric-card {
       background: var(--card);
       border: 1px solid var(--border);
@@ -206,49 +185,29 @@
     .glow-green {
       box-shadow: 0 0 20px rgba(5,150,105,0.15);
     }
-    @media (prefers-color-scheme: dark) {
-      .dark-img { display: block; }
-      .light-img { display: none; }
-    }
-    @media (prefers-color-scheme: light) {
-      .dark-img { display: none; }
-      .light-img { display: block; }
-    }
+
   </style>
 </head>
 <body>
   <div class="min-h-screen flex flex-col">
-    <!-- Top bar -->
-    <div class="border-b bg-muted/30">
-      <div class="max-w-5xl mx-auto px-4 py-1.5 flex items-center justify-between">
-        <span class="text-[13px] text-muted-foreground">PDC Project — Parallel &amp; Distributed Computing</span>
-        <div class="flex items-center gap-3">
-          <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
-            <svg id="sunIcon" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-            <svg id="moonIcon" class="h-4 w-4 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
     <!-- Header -->
-    <header class="border-b bg-background sticky top-0 z-50">
+    <header class="border-b sticky top-0 z-50" style="background:rgba(12,18,34,0.85); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);">
       <div class="max-w-5xl mx-auto px-4 py-3 flex items-center gap-3">
         <div class="logo-icon">PG</div>
         <div>
           <h1 class="text-xl font-heading font-bold tracking-tight">Parallel PDF Generator</h1>
-          <p class="text-xs text-muted-foreground -mt-0.5">Upload &amp; generate PDFs in parallel</p>
+          <p class="text-xs text-muted-foreground mt-0.5">Upload &amp; generate PDFs in parallel</p>
         </div>
       </div>
     </header>
 
     <main class="flex-1 max-w-5xl mx-auto px-4 py-8 w-full">
       <!-- Hero Section -->
-      <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-brand-green/20 via-emerald-50/50 to-brand-orange/10 mb-8 p-8 md:p-10" style="background-image: radial-gradient(circle at 20% 50%, rgba(5,150,105,0.12) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(249,115,22,0.08) 0%, transparent 50%);">
+      <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-brand-green/20 via-emerald-950/50 to-brand-orange/10 mb-8 p-8 md:p-10" style="background-image: radial-gradient(circle at 20% 50%, rgba(5,150,105,0.12) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(249,115,22,0.08) 0%, transparent 50%);">
         <div class="max-w-xl">
           <span class="section-badge">Parallel Processing</span>
           <h2 class="text-3xl md:text-4xl font-heading font-bold tracking-tight leading-tight mb-3">
-            Generate PDFs<br /><span class="text-brand-green">Lightning Fast</span>
+            Generate PDFs <span class="text-brand-green">Lightning Fast</span>
           </h2>
           <p class="text-muted-foreground text-sm md:text-base max-w-lg">
             Upload your data, provide a template, and watch as we process multiple PDFs simultaneously — comparing sequential vs parallel performance with real-time metrics.
@@ -263,7 +222,7 @@
           <h3 class="text-lg font-heading font-semibold">Upload &amp; Configure</h3>
         </div>
         <form id="upload-form" enctype="multipart/form-data">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div class="grid grid-cols-1 gap-6 mb-6">
             <div>
               <label class="text-xs font-semibold block mb-2 text-muted-foreground uppercase tracking-wider">Data File <span class="text-destructive">*</span></label>
               <div id="drop-zone">
@@ -272,32 +231,17 @@
                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/>
                   </svg>
                   <p class="text-sm mb-1"><strong class="text-foreground">Click to upload</strong> <span class="text-muted-foreground">or drag and drop</span></p>
-                  <p class="text-xs text-muted-foreground">.xlsx or .csv (max 50MB)</p>
+                   <p class="text-xs text-muted-foreground">.xlsx or .csv (max 50MB)</p>
                 </div>
                 <input type="file" id="data_file" name="data_file" accept=".xlsx,.csv" class="hidden" />
               </div>
               <p id="file-name" class="text-xs mt-2 hidden text-brand-green font-medium"></p>
             </div>
-            <div>
-              <label class="text-xs font-semibold block mb-2 text-muted-foreground uppercase tracking-wider">HTML Template <span class="text-destructive">*</span></label>
-              <textarea id="template" name="template" rows="8" class="input-field" style="font-family:'JetBrains Mono',monospace;font-size:13px;resize:vertical" placeholder="<p>Student: {{name}}</p><p>Marks: {{marks}}</p><p>Grade: {{grade}}</p>">{% raw %}<p>Student: {{name}}</p>
-<p>Marks: {{marks}}</p>
-<p>Grade: {{grade}}</p>{% endraw %}</textarea>
-            </div>
           </div>
-          <div class="flex items-center gap-4">
-            <button type="submit" id="generate-btn" class="btn-primary flex items-center gap-2">
-              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-              Generate PDFs
-            </button>
-            <div id="progress-section" class="hidden flex-1">
-              <div class="flex items-center gap-2 mb-1.5">
-                <span class="spinner"></span>
-                <span id="progress-text" class="text-xs text-muted-foreground font-medium">Processing...</span>
-              </div>
-              <div class="progress-bar"><div id="progress-fill" class="progress-bar-fill" style="width:0%"></div></div>
-            </div>
-          </div>
+          <button type="submit" id="generate-btn" class="btn-primary flex items-center gap-2">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <span id="btn-text">Generate PDFs</span>
+          </button>
         </form>
       </div>
 
@@ -382,7 +326,7 @@
       </div>
 
       <!-- Error -->
-      <div id="error-section" class="hidden card-custom p-6 mb-6" style="border-color:#ef4444; background:#fef2f2;">
+      <div id="error-section" class="hidden card-custom p-6 mb-6" style="border-color:#ef4444; background:#1e293b;">
         <div class="flex items-start gap-3">
           <svg class="h-5 w-5 text-destructive shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
           <p class="text-sm text-destructive font-medium" id="error-text"></p>
@@ -410,44 +354,14 @@
     const fileName = document.getElementById('file-name');
     const form = document.getElementById('upload-form');
     const generateBtn = document.getElementById('generate-btn');
-    const progressSection = document.getElementById('progress-section');
-    const progressFill = document.getElementById('progress-fill');
-    const progressText = document.getElementById('progress-text');
+    const btnText = document.getElementById('btn-text');
+
     const resultsSection = document.getElementById('results-section');
     const errorSection = document.getElementById('error-section');
     const errorText = document.getElementById('error-text');
     const metricsBody = document.getElementById('metrics-body');
     const chartImg = document.getElementById('chart-img');
     const downloadBtn = document.getElementById('download-btn');
-
-    // Theme toggle
-    const themeToggle = document.getElementById('themeToggle');
-    const sunIcon = document.getElementById('sunIcon');
-    const moonIcon = document.getElementById('moonIcon');
-    const htmlEl = document.documentElement;
-
-    function setTheme(dark) {
-      if (dark) {
-        htmlEl.classList.add('dark');
-        sunIcon.classList.add('hidden');
-        moonIcon.classList.remove('hidden');
-        localStorage.setItem('theme', 'dark');
-      } else {
-        htmlEl.classList.remove('dark');
-        sunIcon.classList.remove('hidden');
-        moonIcon.classList.add('hidden');
-        localStorage.setItem('theme', 'light');
-      }
-    }
-
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      setTheme(true);
-    }
-
-    themeToggle.addEventListener('click', () => {
-      setTheme(!htmlEl.classList.contains('dark'));
-    });
 
     // Drop zone
     dropZone.addEventListener('click', () => fileInput.click());
@@ -467,8 +381,7 @@
       if (!fileInput.files.length) { showError('Please select a data file.'); return; }
       hideError();
       generateBtn.disabled = true;
-      progressSection.classList.remove('hidden');
-      progressFill.style.width = '0%';
+      btnText.textContent = 'Processing…';
       resultsSection.classList.add('hidden');
       const formData = new FormData(form);
       try {
@@ -488,24 +401,19 @@
         const res = await fetch('/status/' + taskId);
         const data = await res.json();
         if (data.error) { showError(data.error); return; }
-        const pct = data.progress || 0;
-        progressFill.style.width = pct + '%';
         if (data.status === 'completed' && data.result) {
-          progressFill.style.width = '100%';
-          progressText.textContent = 'Complete!';
-          setTimeout(() => showResults(data.result), 300);
+          showResults(data.result);
         } else if (data.status === 'error') {
           showError(data.error || 'Processing failed');
         } else {
-          progressText.textContent = 'Processing... ' + pct + '%';
           setTimeout(() => pollStatus(taskId), 800);
         }
       } catch (err) { showError('Polling error: ' + err.message); }
     }
 
     function showResults(result) {
-      progressSection.classList.add('hidden');
       generateBtn.disabled = false;
+      btnText.textContent = 'Generate PDFs';
       const ptValues = Object.values(result.parallel_times).filter(v => v > 0);
       const bestParTime = ptValues.length ? Math.min(...ptValues) : 0;
       const bestSpeedup = bestParTime > 0 ? (result.sequential_time / bestParTime).toFixed(2) : '—';
@@ -535,8 +443,8 @@
     }
 
     function showError(msg) {
-      progressSection.classList.add('hidden');
       generateBtn.disabled = false;
+      btnText.textContent = 'Generate PDFs';
       errorText.textContent = msg;
       errorSection.classList.remove('hidden');
     }

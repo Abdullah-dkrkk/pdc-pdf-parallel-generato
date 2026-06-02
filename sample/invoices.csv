@@ -1,0 +1,6 @@
+invoice_no,client,company,amount,date,status
+INV-001,Ahmed Khan,Tech Solutions PK,"1,50,000",2026-05-01,Paid
+INV-002,Sarah Ali,Digital Heights PK,"2,75,000",2026-05-03,Paid
+INV-003,Usman Malik,CloudNine Ltd,"3,20,000",2026-05-05,Unpaid
+INV-004,Fatima Raza,DataFlow Inc,"1,90,000",2026-05-07,Paid
+INV-005,Bilal Sheikh,NetPro Systems,"4,10,000",2026-05-10,Unpaid

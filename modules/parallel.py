@@ -1,6 +1,12 @@
-import time
+import os, time
 from concurrent.futures import ThreadPoolExecutor
 from .pdf_generator import generate_pdf
+
+
+def _process_chunk(args):
+    rows, output_dir, start_idx = args
+    for i, row in enumerate(rows):
+        generate_pdf(row, output_dir, f'report_{start_idx+i+1}.pdf')
 
 
 def process_parallel_thread(rows, output_dir, workers):
@@ -14,9 +20,3 @@ def process_parallel_thread(rows, output_dir, workers):
     with ThreadPoolExecutor(max_workers=workers) as pool:
         pool.map(_process_chunk, chunks)
     return time.perf_counter() - start
-
-
-def _process_chunk(args):
-    rows, output_dir, start_idx = args
-    for i, row in enumerate(rows):
-        generate_pdf(row, output_dir, f'report_{start_idx+i+1}.pdf')

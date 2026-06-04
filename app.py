@@ -52,22 +52,19 @@ def upload():
         from modules.sequential import process_sequential
         from modules.parallel import process_parallel_thread
         from modules.comparator import ComparisonResult
-        import time
         seq_dir = os.path.join(task_dir, 'sequential')
         os.makedirs(seq_dir, exist_ok=True)
         tasks[task_id]['progress'] = 10
         seq_time = process_sequential(rows, seq_dir)
         tasks[task_id]['progress'] = 40
         par_times = {}
-        worker_counts_to_run = [1, 2, 4]
-        for wc in worker_counts_to_run:
+        for wc in [1, 2, 4]:
             if wc > num_rows:
                 continue
             par_dir = os.path.join(task_dir, f'parallel_{wc}')
             os.makedirs(par_dir, exist_ok=True)
-            t = process_parallel_thread(rows, par_dir, wc)
-            par_times[wc] = t
-            tasks[task_id]['progress'] = min(40 + int(50 * (worker_counts_to_run.index(wc) + 1) / len(worker_counts_to_run)), 90)
+            par_times[wc] = process_parallel_thread(rows, par_dir, wc)
+            tasks[task_id]['progress'] = min(40 + int(50 * ([1,2,4].index(wc) + 1) / 3), 90)
         result = ComparisonResult(seq_time, par_times, num_rows)
         chart_path = os.path.join(app.config['CHARTS_FOLDER'], f'{task_id}.png')
         result.generate_bar_chart(chart_path)
